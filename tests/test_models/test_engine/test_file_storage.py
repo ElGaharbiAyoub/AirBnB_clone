@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+""" Tests for class fileStorage """
 import unittest
 import os
 import json
