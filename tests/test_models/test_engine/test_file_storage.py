@@ -38,6 +38,14 @@ class TestFileStorage(unittest.TestCase):
         all_objects = new_storage.all()
         self.assertIn('BaseModel.{}'.format(model.id), all_objects)
 
+    def test_save(self):
+        """ Tests serializing objects to json file """
+        pass
+
+    def test_reload(self):
+        """ Tests deserializing the json file """
+        pass
+
 
 if __name__ == '__main__':
     unittest.main()
