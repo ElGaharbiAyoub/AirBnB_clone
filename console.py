@@ -2,6 +2,7 @@
 """console AirBnb"""
 import cmd
 import shlex
+import ast
 from models import storage
 from models.base_model import BaseModel
 from models.user import User
@@ -135,7 +136,6 @@ class HBNBCommand(cmd.Cmd):
     def do_update(self, arg):
         """Update an instance attribute"""
         args = shlex.split(arg)
-        print(args)
         if not args:
             print("** class name missing **")
             return
@@ -209,11 +209,20 @@ class HBNBCommand(cmd.Cmd):
 
         if "(" in args and args.endswith(")"):
             args_of_method = args.split("(")[1][:-1]
+            print(args_of_method)
             if args_of_method:
-                args_of_method = args_of_method.replace(",", " ")
-                args_of_method = shlex.split(args_of_method)
-                # print(args_of_method)
-                method(class_name + " " + " ".join(args_of_method))
+                checker = args_of_method.split(", ")
+
+                if checker[1][0] == "{":
+                    _dict = ast.literal_eval("{" + args.split("{")[1][:-1])
+                    # print(_dict)
+                    for key, val in _dict.items():
+                        print(" ".join([class_name, str(checker[0]), key, str(val)]))
+                        method(" ".join([class_name, str(checker[0]), key, "'" + str(val) + "'"]))
+                else:
+                    args_of_method = args_of_method.replace(",", " ")
+                    args_of_method = shlex.split(args_of_method)
+                    method(class_name + " " + " ".join(args_of_method))
             else:
                 method(class_name)
         else:
