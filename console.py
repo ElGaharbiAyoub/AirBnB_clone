@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """console AirBnb"""
 import cmd
+import shlex
 from models import storage
 from models.base_model import BaseModel
 from models.user import User
@@ -120,9 +121,21 @@ class HBNBCommand(cmd.Cmd):
             else:
                 print("** class doesn't exist **")
 
+    def parse_value(self, value_str):
+        """Parse and cast the value to the appropriate type"""
+        try:
+            value = int(value_str)
+        except ValueError:
+            try:
+                value = float(value_str)
+            except ValueError:
+                value = value_str.strip('"')
+        return value
+
     def do_update(self, arg):
         """Update an instance attribute"""
-        args = arg.split()
+        args = shlex.split(arg)
+        print(args)
         if not args:
             print("** class name missing **")
             return
@@ -152,7 +165,7 @@ class HBNBCommand(cmd.Cmd):
             print("** value missing **")
             return
 
-        value_str = " ".join(args[3:])
+        value_str = args[3]
         value = self.parse_value(value_str)
 
         if value is None:
@@ -162,16 +175,49 @@ class HBNBCommand(cmd.Cmd):
         setattr(obj, attr_name, value)
         obj.save()
 
-    def parse_value(self, value_str):
-        """Parse and cast the value to the appropriate type"""
-        try:
-            value = int(value_str)
-        except ValueError:
-            try:
-                value = float(value_str)
-            except ValueError:
-                value = value_str.strip('"')
-        return value
+    def default(self, args):
+        """default"""
+
+        if "." not in args:
+            print("*** Unknown syntax: {}".format(args))
+            return
+
+        class_method = args.split(".")
+        class_name = class_method[0]
+        method_name = class_method[1].split("(")[0]
+
+        if class_name not in self.classes:
+            print("*** Unknown class: {}".format(class_name))
+            return
+
+        if method_name == "count":
+            count = 0
+            for obj in storage.all().values():
+                if class_name == type(obj).__name__:
+                    count += 1
+            print(count)
+            return
+
+        if not hasattr(self, "do_" + method_name):
+            print("*** Unknown method: {}.{}".format(class_name, "do_" + method_name))
+            return
+
+        method = getattr(self, "do_" + method_name)
+        if not callable(method):
+            print("*** Unknown method: {}.{}".format(class_name, "do_" + method_name))
+            return
+
+        if "(" in args and args.endswith(")"):
+            args_of_method = args.split("(")[1][:-1]
+            if args_of_method:
+                args_of_method = args_of_method.replace(",", " ")
+                args_of_method = shlex.split(args_of_method)
+                # print(args_of_method)
+                method(class_name + " " + " ".join(args_of_method))
+            else:
+                method(class_name)
+        else:
+            method(class_name)
 
     def help_quit(self):
         """help function"""

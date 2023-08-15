@@ -40,6 +40,7 @@ c462b36d-98d2-47cd-adab-5a3781ad0283
 Prints a description of the specified object.
 
 - `show <class name> <id>`
+- or `<class name>.show(<id>)`
 
 ```
 (hbnb) show BaseModel c462b36d-98d2-47cd-adab-5a3781ad0283
