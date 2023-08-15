@@ -199,12 +199,14 @@ class HBNBCommand(cmd.Cmd):
             return
 
         if not hasattr(self, "do_" + method_name):
-            print("*** Unknown method: {}.{}".format(class_name, "do_" + method_name))
+            print("*** Unknown method: {}.{}".format(
+                class_name, "do_" + method_name))
             return
 
         method = getattr(self, "do_" + method_name)
         if not callable(method):
-            print("*** Unknown method: {}.{}".format(class_name, "do_" + method_name))
+            print("*** Unknown method: {}.{}".format(
+                class_name, "do_" + method_name))
             return
 
         if "(" in args and args.endswith(")"):
@@ -217,8 +219,11 @@ class HBNBCommand(cmd.Cmd):
                     if checker[1].startswith("{"):
                         _dict = ast.literal_eval("{" + args.split("{")[1][:-1])
                         for key, val in _dict.items():
-                            print(" ".join([class_name, str(checker[0]), key, str(val)]))
-                            method(" ".join([class_name, str(checker[0]), key, "'" + str(val) + "'"]))
+                            print(" ".join(
+                                [class_name, str(checker[0]), key, str(val)]))
+                            method(" ".join(
+                                [class_name, str(
+                                    checker[0]), key, "'" + str(val) + "'"]))
                     else:
                         args_of_method = args_of_method.replace(",", " ")
                         args_of_method = shlex.split(args_of_method)
