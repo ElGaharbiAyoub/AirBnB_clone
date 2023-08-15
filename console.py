@@ -212,13 +212,17 @@ class HBNBCommand(cmd.Cmd):
             print(args_of_method)
             if args_of_method:
                 checker = args_of_method.split(", ")
-
-                if checker[1][0] == "{":
-                    _dict = ast.literal_eval("{" + args.split("{")[1][:-1])
-                    # print(_dict)
-                    for key, val in _dict.items():
-                        print(" ".join([class_name, str(checker[0]), key, str(val)]))
-                        method(" ".join([class_name, str(checker[0]), key, "'" + str(val) + "'"]))
+                print(checker)
+                if method_name == "update":
+                    if checker[1].startswith("{"):
+                        _dict = ast.literal_eval("{" + args.split("{")[1][:-1])
+                        for key, val in _dict.items():
+                            print(" ".join([class_name, str(checker[0]), key, str(val)]))
+                            method(" ".join([class_name, str(checker[0]), key, "'" + str(val) + "'"]))
+                    else:
+                        args_of_method = args_of_method.replace(",", " ")
+                        args_of_method = shlex.split(args_of_method)
+                        method(class_name + " " + " ".join(args_of_method))
                 else:
                     args_of_method = args_of_method.replace(",", " ")
                     args_of_method = shlex.split(args_of_method)
