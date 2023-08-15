@@ -50,7 +50,8 @@ class FileStorage:
                         FileStorage.__objects[key] = obj_instance
                     else:
                         print(
-                            f"Warning: Class '{class_name}' not found, skipping object.")
+                            "Warning: Class '{}' not found, skipping object."
+                            .format(class_name))
 
         except FileNotFoundError:
             pass
