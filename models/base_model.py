@@ -17,7 +17,8 @@ class BaseModel:
             for key, val in kwargs.items():
                 if key == "created_at" or key == "updated_at":
                     val = datetime.strptime(val, "%Y-%m-%dT%H:%M:%S.%f")
-                setattr(self, key, val)
+                if key != '__class__':
+                    setattr(self, key, val)
         else:
             self.id = str(uuid.uuid4())
             self.created_at = datetime.now()
@@ -37,7 +38,7 @@ class BaseModel:
     def to_dict(self):
         """returns a dictionary containing all keys/values of object"""
         dictt = dict(self.__dict__)
-        dictt['__class__'] = str(self.__class__.__name__)
+        dictt['__class__'] = type(self).__name__
         dictt['created_at'] = self.created_at.isoformat()
         dictt['updated_at'] = self.updated_at.isoformat()
         return dictt
