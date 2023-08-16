@@ -2,12 +2,21 @@
 """ Tests for class BaseModel """
 import unittest
 from models.base_model import BaseModel
+from models.engine.file_storage import FileStorage
 from datetime import datetime
 import models
-
+import os
+import os.path
 
 class TestBaseModel(unittest.TestCase):
     """ Tests for class BaseModel """
+
+    def __init__(self, *args, **kwargs):
+        """ Inititialize models to test """
+
+        super().__init__(*args, **kwargs)
+        self.test_class = BaseModel
+        self.test_name = 'BaseModel'
 
     def test_init(self):
         """Tests for init """
@@ -24,6 +33,16 @@ class TestBaseModel(unittest.TestCase):
         self.assertIn("id", str_repr)
         self.assertIn("created_at", str_repr)
         self.assertIn("updated_at", str_repr)
+        
+    def test_save_load(self):
+        """ Tests save and reload """
+
+        if os.path.exists('file.json'):
+            os.remove('file.json')
+        _save = FileStorage()
+        _save.reload()
+        _object = self.test_class()
+        self.assertTrue(self.test_name + '.' + _object.id in _save.all())
 
     def test_save(self):
         """Test save method"""
