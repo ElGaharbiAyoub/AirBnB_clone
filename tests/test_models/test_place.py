@@ -3,6 +3,7 @@
 import unittest
 from models.place import Place
 
+
 class TestPlace(unittest.TestCase):
     """Test cases for the Place class"""
 
@@ -21,7 +22,6 @@ class TestPlace(unittest.TestCase):
         self.assertEqual(place.longitude, 0.0)
         self.assertEqual(place.amenity_ids, [])
 
-
     def test_str_representation(self):
         """Test the __str__ method"""
         place = Place()
@@ -31,6 +31,7 @@ class TestPlace(unittest.TestCase):
         self.assertIn("'id':", str_rep)
         self.assertIn("'created_at':", str_rep)
         self.assertIn("'updated_at':", str_rep)
+
 
 if __name__ == '__main__':
     unittest.main()

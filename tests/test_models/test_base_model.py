@@ -8,6 +8,7 @@ import models
 import os
 import os.path
 
+
 class TestBaseModel(unittest.TestCase):
     """ Tests for class BaseModel """
 
@@ -33,7 +34,7 @@ class TestBaseModel(unittest.TestCase):
         self.assertIn("id", str_repr)
         self.assertIn("created_at", str_repr)
         self.assertIn("updated_at", str_repr)
-        
+
     def test_save_load(self):
         """ Tests save and reload """
 
@@ -59,21 +60,6 @@ class TestBaseModel(unittest.TestCase):
         self.assertEqual(type(model_dict['created_at']), str)
         self.assertEqual(type(model_dict['updated_at']), str)
         self.assertEqual(type(model_dict['id']), str)
-
-    # def test_init_with_kwargs(self):
-    #     now = datetime.now()
-    #     kwargs = {
-    #         'id': '123',
-    #         'created_at': now.isoformat(),
-    #         'updated_at': now.isoformat(),
-    #         'custom_attr': 'custom_value'
-    #     }
-    #     model = BaseModel(**kwargs)
-    #     self.assertEqual(model.id, kwargs['id'])
-    #     self.assertEqual(model.created_at, now)
-    #     self.assertEqual(model.updated_at, now)
-    #     self.assertFalse(hasattr(model, 'custom_attr'))
-
 
     def test_save_existing_instance(self):
         """Test saving a existing instance from dictionary"""
