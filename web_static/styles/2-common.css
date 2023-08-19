@@ -1,0 +1,7 @@
+@import "./2-footer.css";
+@import "./2-header.css";
+body {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+}
