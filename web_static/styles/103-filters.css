@@ -1,0 +1,113 @@
+.container .filters {
+  background-color: white;
+  height: 70px;
+  width: 100%;
+  border: 1px solid #dddddd;
+  border-radius: 35px;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.filters button {
+  margin-left: auto;
+  font-size: 18px;
+  background-color: #ff5a5f;
+  border: 1px solid #ff5a5f;
+  color: #ffffff;
+  height: 48px;
+  width: 20%;
+  border-radius: 4px;
+  margin-right: 30px;
+  cursor: pointer;
+}
+
+.filters button:hover {
+  background-color: #ffffff;
+  color: #ff5a5f;
+  transition: all 0.2s ease-in;
+}
+
+.filters .locations,
+.filters .amenities {
+  position: relative;
+  height: 100%;
+  width: 25%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-left: 30px;
+  cursor: pointer;
+}
+
+.filters .locations:hover .popover,
+.filters .amenities:hover .popover {
+  display: block;
+  transition: all 0.5s ease-in-out;
+}
+
+.filters div:first-child {
+  border-right: 1px solid #dddddd;
+}
+
+.filters h3 {
+  font-weight: 600;
+}
+
+.filters h4 {
+  font-weight: 400;
+  font-size: 14px;
+}
+
+.filters .popover {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: #fafafa;
+  width: 100%;
+  border: 1px solid #dddddd;
+  border-radius: 4px;
+  list-style: none;
+  padding: 20px 0;
+  z-index: 10;
+}
+.filters .popover h2 {
+  font-size: 16px;
+  margin-left: 30px;
+  margin-top: 15px;
+  text-transform: capitalize;
+}
+.filters .popover li {
+  margin: 5px 0;
+  margin-left: 50px;
+  text-transform: capitalize;
+}
+
+@media screen and (width < 460px) {
+  .container .filters {
+    position: relative;
+    height: 100%;
+    width: 90%;
+    padding: 10px 0;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .filters .popover {
+    width: 100%;
+  }
+  .filters .locations,
+  .filters .amenities {
+    position: initial;
+    width: 30%;
+  }
+  .filters button {
+    width: 90%;
+    border-radius: 8px;
+    margin-right: 0;
+    margin-left: 0;
+    margin-top: 15px;
+  }
+}

@@ -1,0 +1,25 @@
+@import "./102-footer.css";
+@import "./102-header.css";
+* {
+  margin: 0;
+  padding: 0;
+}
+body {
+  position: relative;
+  color: #484848;
+  font-size: 14px;
+  font-family: Circular, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  min-height: 90vh;
+}
+
+.container {
+  max-width: 1000px;
+  margin: 30px auto;
+}
+
+@media screen and (width < 760px) {
+  .container {
+    max-width: 480px;
+    margin: 30px auto;
+  }
+}
